@@ -1,2 +1,4 @@
-/env/
+env/
 /secret.py
+__pycache__/
+ports.txt
