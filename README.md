@@ -22,6 +22,11 @@ Những file dev chính:
 ```bash
     source run.sh
 ```
+create file secret.py for API:
+```python
+    adaUsername = "abc"
+    adaKey = "aio_xxyz"
+```
 
 ## RUN PROJECT
 

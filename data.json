@@ -1,0 +1,24 @@
+[
+    {
+        "id": 1,
+        "cycle": 5,
+        "mixer1": 5,
+        "mixer2": 3,
+        "mixer3": 2,
+        "active": true,
+        "name": "LỊCH TƯỚI 1",
+        "startTime": "18:30",
+        "stopTime": "18:40"
+    },
+    {
+        "id": 2,
+        "cycle": 5,
+        "flow1": 2,
+        "flow2": 5,
+        "flow3": 3,
+        "active": true,
+        "schedulerName": "LỊCH TƯỚI 2",
+        "startTime": "18:30",
+        "stopTime": "18:40"
+    }
+]
