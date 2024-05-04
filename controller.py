@@ -66,20 +66,20 @@ class Physic:
             if "USB" in strPort:  # Checks if the port description contains 'USB'
                 splitPort = strPort.split(" ")
                 commPort = splitPort[0]  # Assumes the first part is the port name
-        return commPort
-        # with open("ports.txt", "r") as file:
-        #     output = file.read()
-        # matches = re.findall(r'PTY is (\S+)', output)
+        # return commPort
+        with open("ports.txt", "r") as file:
+            output = file.read()
+        matches = re.findall(r'PTY is (\S+)', output)
 
-        # if len(matches) == 2:
-        #     pty1, pty2 = matches
+        if len(matches) == 2:
+            pty1, pty2 = matches
         
-        # if state == 1:
-        #     print(pty1)
-        #     return pty1
-        # else: 
-        #     print(pty2)
-        #     return pty2        
+        if state == 1:
+            print(pty1)
+            return pty1
+        else: 
+            print(pty2)
+            return pty2        
 
     def serial_read_data(self):
         bytesToRead = self.ser.inWaiting() 
