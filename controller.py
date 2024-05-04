@@ -66,20 +66,20 @@ class Physic:
             if "USB" in strPort:  # Checks if the port description contains 'USB'
                 splitPort = strPort.split(" ")
                 commPort = splitPort[0]  # Assumes the first part is the port name
-        # return commPort
-        with open("ports.txt", "r") as file:
-            output = file.read()
-        matches = re.findall(r'PTY is (\S+)', output)
+        return commPort
+        # with open("ports.txt", "r") as file:
+        #     output = file.read()
+        # matches = re.findall(r'PTY is (\S+)', output)
 
-        if len(matches) == 2:
-            pty1, pty2 = matches
+        # if len(matches) == 2:
+        #     pty1, pty2 = matches
         
-        if state == 1:
-            print(pty1)
-            return pty1
-        else: 
-            print(pty2)
-            return pty2        
+        # if state == 1:
+        #     print(pty1)
+        #     return pty1
+        # else: 
+        #     print(pty2)
+        #     return pty2        
 
     def serial_read_data(self):
         bytesToRead = self.ser.inWaiting() 
@@ -98,10 +98,10 @@ class Physic:
     def setActuators(self, ID, state):
         """Sends a command to set the state of an actuator (relay) based on its ID."""
         command_key = f'relay{ID}_{"ON" if state else "OFF"}'
-        # command_data = self.RS485_actuators_format.get(command_key)
+        command_data = self.RS485_actuators_format.get(command_key)
 
         client.publish(pub_feed[ID], state)
-        # self.ser.write(command_data)  
+        self.ser.write(command_data)  
 
     def readSensors(self, sensorName):
         """Sends a command to read data from a specified sensor."""
