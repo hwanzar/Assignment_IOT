@@ -18,7 +18,20 @@ state = {
     "pump-in": 2,
     "pump-out": 2,
     "active": 1,
+    "start-time": "10:25",
 }
+
+new_state = {
+    "next-cycle": 1,
+    "mixer1": 4,
+    "mixer2": 2,
+    "mixer3": 3,
+    "pump-in": 2,
+    "pump-out": 2,
+    "active": 1,
+    "start-time": "10:25",
+}
+
 # address_feed = {
 #     "mixer1": 2,
 #     "mixer2": 3,
