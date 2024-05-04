@@ -51,7 +51,7 @@ output_file2 = "./data/scheduler.json"
 fetch_data_and_save_to_file(url2, output_file2)
 
 
-with open('scheduler.json', 'r') as file:
+with open('./data/scheduler.json', 'r') as file:
     json_data = file.read()
 
 data = json.loads(json_data)
