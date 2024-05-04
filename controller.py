@@ -81,10 +81,6 @@ class Physic:
             print(pty2)
             return pty2        
 
-
-
-
-
     def serial_read_data(self):
         bytesToRead = self.ser.inWaiting() 
         if bytesToRead > 0:
@@ -103,6 +99,7 @@ class Physic:
         """Sends a command to set the state of an actuator (relay) based on its ID."""
         command_key = f'relay{ID}_{"ON" if state else "OFF"}'
         # command_data = self.RS485_actuators_format.get(command_key)
+
         client.publish(pub_feed[ID], state)
         # self.ser.write(command_data)  
 

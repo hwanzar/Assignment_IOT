@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "cycle": 5,
+        "cycle": 2,
         "mixer1": 5,
         "mixer2": 3,
         "mixer3": 2,
@@ -12,7 +12,7 @@
     },
     {
         "id": 2,
-        "cycle": 5,
+        "cycle": 1,
         "flow1": 2,
         "flow2": 5,
         "flow3": 3,

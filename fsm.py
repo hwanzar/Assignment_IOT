@@ -25,15 +25,18 @@ class FarmScheduler():
 
             self.current_state = self.current_state.execute(self.current_schedule)
             if isinstance(self.current_state, IdleState) and self.current_schedule['next-cycle'] <= 0:
-                self.schedules.pop(0)   
+                self.schedules.pop(0)
                 print("Cycle complete, checking for new schedules.")
                 self.current_schedule = None
                 break
 
             time.sleep(1)  # Main loop tick rate
 
-    def add_schedule(self, schedule):
-        self.schedules.append(schedule)
+    def add_schedule(self, new_schedule):
+        for sched in self.schedules:
+            if new_schedule["startTime"] < sched["startTime"]:
+                return False
+        self.schedules.append(new_schedule)
 
     def check_schedule(self):
         # This is a placeholder for actual schedule checking logic
@@ -68,7 +71,7 @@ class Mixer1State(State):
     def execute(self, schedule):
         PHYSIC.setActuators(MIXER1,1)
         setTimer(0, int(schedule['mixer1']))
-        self.wait_for_timer(0)
+        # self.wait_for_timer(0)
         PHYSIC.setActuators(MIXER1,0)
         if self.debug:
             print("MIXER1 STATE - Complete")
@@ -78,7 +81,7 @@ class Mixer2State(State):
     def execute(self, schedule):
         PHYSIC.setActuators(MIXER2,1)
         setTimer(0, int(schedule['mixer2']))
-        self.wait_for_timer(0)
+        # self.wait_for_timer(0)
         PHYSIC.setActuators(MIXER2,0)
         if self.debug:
             print("MIXER2 STATE - Complete")
@@ -88,7 +91,7 @@ class Mixer3State(State):
     def execute(self, schedule):
         PHYSIC.setActuators(MIXER3,1)
         setTimer(0, int(schedule['mixer3']))
-        self.wait_for_timer(0)
+        # self.wait_for_timer(0)
         PHYSIC.setActuators(MIXER3,0)
         if self.debug:
             print("MIXER3 STATE - Complete")
@@ -98,7 +101,7 @@ class PumpInState(State):
     def execute(self, schedule):
         PHYSIC.setActuators(PUMPIN,1)
         setTimer(0, int(schedule['pump-in']))
-        self.wait_for_timer(0)
+        # self.wait_for_timer(0)
         PHYSIC.setActuators(PUMPIN,0)
         if self.debug:
             print("PUMP IN STATE - Complete")
@@ -108,7 +111,7 @@ class PumpOutState(State):
     def execute(self, schedule):
         PHYSIC.setActuators(PUMPOUT,1)
         setTimer(0, int(schedule['pump-out']))
-        self.wait_for_timer(0)
+        # self.wait_for_timer(0)
         PHYSIC.setActuators(PUMPOUT,0)
         if self.debug:
             print("PUMP OUT STATE - Complete")
@@ -119,5 +122,7 @@ class PumpOutState(State):
 def convert_schedule_json_to_dict(json_data):
     print("DEBUG: We been heerre")
     return json.loads(json_data)
+
+
 
 
