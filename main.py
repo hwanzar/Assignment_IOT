@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from adafruit import *
 from timer_interrupt import *
 import threading
@@ -11,14 +12,14 @@ from controller import *
 
 
 state = {
-    "next-cycle": 1,
+    "next-cycle": 13,
     "mixer1": 4,
     "mixer2": 2,
     "mixer3": 3,
     "pump-in": 2,
     "pump-out": 2,
     "active": 1,
-    "start-time": "10:25",
+    "start-time": "12:30",
 }
 
 new_state = {
@@ -59,6 +60,23 @@ def data_callback(feed_id, payload):
         print(f"No handler found for feed: {feed_id}")
 
 
+def add_seconds_to_time(time_str, seconds):
+    time_format = "%H:%M"
+    time_obj = datetime.strptime(time_str, time_format)
+    delta = timedelta(seconds=seconds)
+    new_time_obj = time_obj + delta
+    return new_time_obj.strftime(time_format)
+
+
+def calculate_stop_time(schedule):
+    schedule_time = 0
+    for key in schedule:
+        if key != 'active' and key != 'next-cycle' and key != 'start-time':
+            schedule_time += schedule[key]
+    stop_time = add_seconds_to_time(schedule["start-time"], schedule_time * schedule["next-cycle"])
+    schedule["stop-time"] = stop_time
+
+
 # adafruit_client = Adafruit_MQTT()
 client.setRecvCallBack(data_callback)
 
@@ -69,6 +87,8 @@ os.system("clear")
 while True:
 
     if state["active"] == 1:
+        calculate_stop_time(state)
+        print(state)
         sched_active.append(state.copy())
         print("Activated new schedule!")
         print(state)
