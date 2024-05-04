@@ -34,9 +34,10 @@ class FarmScheduler():
 
     def add_schedule(self, new_schedule):
         for sched in self.schedules:
-            if new_schedule["startTime"] < sched["startTime"]:
+            if new_schedule["start-time"] > sched["start-time"] and new_schedule["start-time"] < sched["stop-time"]:
                 return False
         self.schedules.append(new_schedule)
+        return True
 
     def check_schedule(self):
         # This is a placeholder for actual schedule checking logic
