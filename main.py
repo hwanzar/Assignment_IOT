@@ -13,8 +13,8 @@ from datetime import datetime
 
 state = {
     "next-cycle": 1,
-    "mixer1": 4,
-    "mixer2": 2,
+    "mixer1": 5,
+    "mixer2": 4,
     "mixer3": 3,
     "pump-in": 2,
     "pump-out": 2,
@@ -40,40 +40,51 @@ new_state = {
 #     "pump-in": 5,
 #     "pump-out": 6
 # }
+with open('./data/area-selector.json', 'r') as file:
+    json_area_data = file.read()
 
+area_data = json.loads(json_area_data)
 
 
 
 def data_callback(feed_id, payload):
     key = feed_id.replace("sys.", "")
+    print(f"{key} updated: {payload}")
+    # if key in state:
 
-    if key in state:
+    #     # state[key] = payload
+    #     #TODO: control physical.
+    #     # control.setActuators(address_feed[key], payload)
+    #     # print(f"Updated {key} to {payload}")
+    #     # time.sleep(1)
 
-        # state[key] = payload
-        #TODO: control physical.
-        # control.setActuators(address_feed[key], payload)
-        print(f"Updated {key} to {payload}")
-        # time.sleep(1)
-
-    else:
-        print(f"No handler found for feed: {feed_id}")
+    # else:
+    #     print(f"No handler found for feed: {feed_id}")
 
 
 # adafruit_client = Adafruit_MQTT()
 client.setRecvCallBack(data_callback)
 
 
-sched_active = [state, new_state]
+sched_active = [state]
 start_sched = fsm.FarmScheduler()
 control = Physic()
-os.system("clear")
+# os.system("clear")
+counter = 30
+control.selectArea(area_data)
 while True:
+    counter -= 1
+    if counter <= 0:
+        control.readSensors("soil_temperature")
+        control.readSensors("soil_moisture")
+
     if not sched_active:
         current_time = datetime.now().strftime('%H:%M')
         # print(current_time)
         # print(state["start-time"])
         if current_time == state["start-time"] and state["active"] == 1:
             # print(True)
+
             state["onSchedule"] == 1
             sched_active.append(state.copy())
             print("Activated new schedule!")
@@ -84,11 +95,10 @@ while True:
     #     print(state)
     #     state["active"] = 0  # Reset the active flag
 
-
-    for schedule in sched_active:
-        start_sched.add_schedule(schedule)
-        print(schedule["start-time"])
+    if sched_active:
+        start_sched.add_schedule(sched_active[0])
+        print("SCHEDULE PROCESSING: ", sched_active[0])
         start_sched.run()
-        sched_active.remove(schedule)
+        sched_active.remove(sched_active[0])
 
     # time.sleep(1)

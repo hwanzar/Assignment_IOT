@@ -50,24 +50,24 @@ url2 = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-ssvkju
 output_file2 = "./data/scheduler.json"
 fetch_data_and_save_to_file(url2, output_file2)
 
-
-with open('./data/scheduler.json', 'r') as file:
+with open('./data/area-selector.json', 'r') as file:
     json_data = file.read()
 
 data = json.loads(json_data)
-for item in data:
-    item['onSchedule'] = False
-print(len(data))
+# for item in data:
+#     item['onSchedule'] = False
+# print(len(data))
+print(data["area1"])
 
 
-start_time = data[0]['startTime']
-print("Start Time:", start_time)
+# start_time = data[0]['startTime']
+# print("Start Time:", start_time)
 
-datetime_obj = datetime.strptime(start_time, '%Y-%m-%dT%H:%M:%S.%fZ')
+# datetime_obj = datetime.strptime(start_time, '%Y-%m-%dT%H:%M:%S.%fZ')
 
-formatted_time = datetime_obj.strftime('%H:%M')
+# formatted_time = datetime_obj.strftime('%H:%M')
 
-print("Formatted Time:", formatted_time)
+# print("Formatted Time:", formatted_time)
 
 
 # import time

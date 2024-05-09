@@ -20,14 +20,14 @@ from secret import adaUsername, adaKey
 class Adafruit_MQTT:
 
     AIO_FEED_IDs = [
+                        "sys.area1",
+                        "sys.area2",
+                        "sys.area3",
                         "sys.mixer1", 
                         "sys.mixer2", 
                         "sys.mixer3",
-                        "sys.next-cycle",
-                        "sys.area1",
                         "sys.pump-in", 
                         "sys.pump-out",
-                        "sys.active"
                     ]
     AIO_USERNAME = adaUsername
     AIO_KEY = adaKey

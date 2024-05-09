@@ -16,6 +16,7 @@ class FarmScheduler():
         self.current_state = IdleState(debug=self.debug)
 
     def run(self):
+        time.sleep(2)
         while True:
             if not self.current_schedule:
                 self.current_schedule = self.check_schedule()

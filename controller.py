@@ -2,6 +2,7 @@ import sys
 import time
 import serial.tools.list_ports
 # from main import adafruit_client
+import random
 from adafruit import client
 import re
 MIXER1 = 2
@@ -18,6 +19,9 @@ pub_feed = ["sys.temperature", "sys.humidity", "sys.mixer1",
                         "sys.mixer3",
                         "sys.pump-in",
                         "sys.pump-out",
+                        "sys.area1",
+                        "sys.area2",
+                        "sys.area3",
                         "sys.next-cycle",
                         "sys.area2",
                         "sys.active"]
@@ -98,20 +102,31 @@ class Physic:
     def setActuators(self, ID, state):
         """Sends a command to set the state of an actuator (relay) based on its ID."""
         command_key = f'relay{ID}_{"ON" if state else "OFF"}'
-        command_data = self.RS485_actuators_format.get(command_key)
-
+        # command_data = self.RS485_actuators_format.get(command_key)
         client.publish(pub_feed[ID], state)
-        self.ser.write(command_data)  
+        # self.ser.write(command_data)  
 
     def readSensors(self, sensorName):
         """Sends a command to read data from a specified sensor."""
-        self.serial_read_data()
-        command_data = self.RS485_sensors_format.get(sensorName)
-        self.ser.write(command_data) 
+        # self.serial_read_data()
+        # command_data = self.RS485_sensors_format.get(sensorName)
+        if sensorName == "soil_temperature":
+            temperature = random.randint(0, 100)
+            print("TEMP", temperature)
+            client.publish(pub_feed[0], temperature)
+        elif sensorName == "soil_moisture":
+            moisture = random.randint(0, 100)
+            client.publish(pub_feed[1], moisture)
+        # self.ser.write(command_data) 
         time.sleep(1)  
-        return self.serial_read_data()  
+        # return self.serial_read_data()  
 
-
+    def selectArea(self, area_state):
+        self.setActuators(7, area_state["area1"])
+        self.setActuators(8, area_state["area2"])
+        self.setActuators(9, area_state["area3"])
+        print("AREA SELECTED")
+        
         
         
 
