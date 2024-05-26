@@ -17,15 +17,10 @@ Những file dev chính:
     chmod 777 *.sh
     ./init.sh
 ```
-- add environment to terminal.
-
-```bash
-    source run.sh
-```
-create file secret.py for API:
+- create ```.env``` file for API:
 ```python
-    adaUsername = "abc"
-    adaKey = "aio_xxyz"
+    AIO_USERNAME='YOUR_USERNAME'
+    AIO_KEY='YOUR_AIO_KEY'
 ```
 
 ## RUN PROJECT
