@@ -3,3 +3,4 @@
 /secret.py
 .env
 ports.txt
+__pycache__/
