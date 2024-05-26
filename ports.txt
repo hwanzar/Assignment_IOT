@@ -1,3 +1,0 @@
-2024/05/09 13:36:00 socat[15279] N PTY is /dev/pts/6
-2024/05/09 13:36:00 socat[15279] N PTY is /dev/pts/7
-2024/05/09 13:36:00 socat[15279] N starting data transfer loop with FDs [5,5] and [7,7]
