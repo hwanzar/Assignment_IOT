@@ -1,43 +1,35 @@
 import serial.tools.list_ports
-
 import sys
-
 import time
-
 import random
 import json
+import os
 from Adafruit_IO import MQTTClient
-from secret import adaUsername, adaKey
-# from controller import *
-#from simple_ai import image_detector
+from dotenv import load_dotenv
 
-#from port import *
-
-# from rs485 import *
-
-#from adafruit import *
+load_dotenv()
 
 class Adafruit_MQTT:
 
     AIO_FEED_IDs = [
-                        "sys.area1",
-                        "sys.area2",
-                        "sys.area3",
-                        "sys.mixer1", 
-                        "sys.mixer2", 
-                        "sys.mixer3",
-                        "sys.pump-in", 
-                        "sys.pump-out",
-                    ]
-    AIO_USERNAME = adaUsername
-    AIO_KEY = adaKey
+        "sys.area1",
+        "sys.area2",
+        "sys.area3",
+        "sys.mixer1",
+        "sys.mixer2",
+        "sys.mixer3",
+        "sys.pump-in",
+        "sys.pump-out",
+    ]
+    AIO_USERNAME = os.getenv("AIO_USERNAME")
+    AIO_KEY = os.getenv("AIO_KEY")
     recvCallBack = None
 
     def connected(self, client):
         print("Connected ...")
         for feed in self.AIO_FEED_IDs:
             client.subscribe(feed)
-    
+
     def subscribe(self, client, userdata, mid, granted_qos):
         print("Subscribed...")
 
@@ -70,16 +62,4 @@ class Adafruit_MQTT:
         self.client.connect()
         self.client.loop_background()
 
-
-
-
-
-
-# Create an instance of Adafruit_MQTT
-
-# mqtt_instance = Adafruit_MQTT()
-client = Adafruit_MQTT() # public client --> sẽ dùng ở MAIN
-
-# while True:
-# 	# readSerial(mqtt_instance.client)
-# 	time.sleep(2)
+client = Adafruit_MQTT() # public client
