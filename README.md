@@ -1,4 +1,4 @@
-# IOT ASSIGNMENT
+# Irrigation System - IOT Gateway
 
 ## Project initialization - Linux only
 - initialize developed environment.
