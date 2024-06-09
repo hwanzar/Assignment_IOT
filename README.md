@@ -34,7 +34,3 @@ At this time. We need two terminal: one for main.py and one for mkport.sh
 ```bash
     python main.py
 ```
-
-
-
-# Assignment_IOT
