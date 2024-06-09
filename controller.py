@@ -33,27 +33,27 @@ pub_feed = [
 class Physic:
     def __init__(self):
         self.RS485_actuators_format = {
-            'relay1_ON': [1, 6, 0, 0, 0, 255, 201, 138],
-            'relay1_OFF': [1, 6, 0, 0, 0, 0, 137, 202],
-            'relay2_ON': [2, 6, 0, 0, 0, 255, 201, 185],
-            'relay2_OFF': [2, 6, 0, 0, 0, 0, 137, 249],
-            'relay3_ON': [3, 6, 0, 0, 0, 255, 200, 104],
-            'relay3_OFF': [3, 6, 0, 0, 0, 0, 136, 40],
-            'relay4_ON': [4, 6, 0, 0, 0, 255, 201, 223],
-            'relay4_OFF': [4, 6, 0, 0, 0, 0, 137, 159],
-            'relay5_ON': [5, 6, 0, 0, 0, 255, 200, 14],
-            'relay5_OFF': [5, 6, 0, 0, 0, 0, 136, 78],
-            'relay6_ON': [6, 6, 0, 0, 0, 255, 200, 61],
-            'relay6_OFF': [6, 6, 0, 0, 0, 0, 136, 125],
-            'relay7_ON': [7, 6, 0, 0, 0, 255, 201, 236],
-            'relay7_OFF': [7, 6, 0, 0, 0, 0, 137, 172],
-            'relay8_ON': [8, 6, 0, 0, 0, 255, 201, 19],
-            'relay8_OFF': [8, 6, 0, 0, 0, 0, 137, 83]
+            'relay1_ON':    [1, 6, 0, 0, 0, 255, 201, 138],
+            'relay1_OFF':   [1, 6, 0, 0, 0, 0, 137, 202],
+            'relay2_ON':    [2, 6, 0, 0, 0, 255, 201, 185],
+            'relay2_OFF':   [2, 6, 0, 0, 0, 0, 137, 249],
+            'relay3_ON':    [3, 6, 0, 0, 0, 255, 200, 104],
+            'relay3_OFF':   [3, 6, 0, 0, 0, 0, 136, 40],
+            'relay4_ON':    [4, 6, 0, 0, 0, 255, 201, 223],
+            'relay4_OFF':   [4, 6, 0, 0, 0, 0, 137, 159],
+            'relay5_ON':    [5, 6, 0, 0, 0, 255, 200, 14],
+            'relay5_OFF':   [5, 6, 0, 0, 0, 0, 136, 78],
+            'relay6_ON':    [6, 6, 0, 0, 0, 255, 200, 61],
+            'relay6_OFF':   [6, 6, 0, 0, 0, 0, 136, 125],
+            'relay7_ON':    [7, 6, 0, 0, 0, 255, 201, 236],
+            'relay7_OFF':   [7, 6, 0, 0, 0, 0, 137, 172],
+            'relay8_ON':    [8, 6, 0, 0, 0, 255, 201, 19],
+            'relay8_OFF':   [8, 6, 0, 0, 0, 0, 137, 83]
         }
 
         self.RS485_sensors_format = {
-            "soil_temperature" : [1, 3, 0, 6, 0, 1, 100, 11],
-            "soil_moisture" : [1, 3, 0, 7, 0, 1, 53, 203]
+            "soil_temperature": [1, 3, 0, 6, 0, 1, 100, 11],
+            "soil_moisture":    [1, 3, 0, 7, 0, 1, 53, 203]
         }
 
         self.portname = self.getPort(1)
@@ -107,14 +107,14 @@ class Physic:
     def setActuators(self, ID, state):
         """Sends a command to set the state of an actuator (relay) based on its ID."""
         command_key = f'relay{ID}_{"ON" if state else "OFF"}'
-        # command_data = self.RS485_actuators_format.get(command_key)
+        command_data = self.RS485_actuators_format.get(command_key)
         client.publish(pub_feed[ID], state)
-        # self.ser.write(command_data)
+        self.ser.write(command_data)
 
     def readSensors(self, sensorName):
         """Sends a command to read data from a specified sensor."""
-        # self.serial_read_data()
-        # command_data = self.RS485_sensors_format.get(sensorName)
+        self.serial_read_data()
+        command_data = self.RS485_sensors_format.get(sensorName)
         if sensorName == "soil_temperature":
             temperature = random.randint(0, 100)
             print("TEMP", temperature)
@@ -122,9 +122,9 @@ class Physic:
         elif sensorName == "soil_moisture":
             moisture = random.randint(0, 100)
             client.publish(pub_feed[1], moisture)
-        # self.ser.write(command_data)
+        self.ser.write(command_data)
         time.sleep(1)
-        # return self.serial_read_data()
+        return self.serial_read_data()
 
     def selectArea(self, area_state):
         self.setActuators(7, area_state["area1"])
