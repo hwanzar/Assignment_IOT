@@ -21,6 +21,8 @@ Những file dev chính:
 ```python
     AIO_USERNAME='YOUR_USERNAME'
     AIO_KEY='YOUR_AIO_KEY'
+    AREA_API_URL=''
+    SCHEDULE_API_URL=''
 ```
 
 ## RUN PROJECT
