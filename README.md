@@ -1,16 +1,6 @@
 # IOT ASSIGNMENT
 
-## Brief Description
-
-Những file dev chính:
-- main.py
-- adafruit.py
-- controller.py
-- timer_interrupt.py
-- fsm.py
-
-
-## INIT PROJECT ON LINUX:
+## Project initialization - Linux only
 - initialize developed environment.
 
 ```bash
@@ -25,7 +15,7 @@ Những file dev chính:
     SCHEDULE_API_URL=''
 ```
 
-## RUN PROJECT
+## Getting started
 
 At this time. We need two terminal: one for main.py and one for mkport.sh
 ```bash
